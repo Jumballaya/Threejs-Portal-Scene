@@ -22,7 +22,7 @@ const state = {
     fireflies: {
       geometry: new THREE.BufferGeometry(),
       count: 30,
-      size: 95,
+      size: 110,
       positions: new Float32Array(30 * 3),
       scales: new Float32Array(30 * 1),
     },
@@ -40,7 +40,7 @@ const getSceneModel = async () => {
 const getBakedMaterial = async () => {
   const texture = await state.core.loader.loadTexture(
     'portal',
-    `${publicPath}/textures/portal.jpg`,
+    `${publicPath}textures/portal.jpg`,
   );
   texture.flipY = false;
   texture.encoding = THREE.sRGBEncoding;
@@ -178,15 +178,20 @@ const main = async () => {
   const clock = new THREE.Clock();
   state.core.loop((deltaT: number) => {
     if (state.attributes.loaded && overlay.material.uniforms.uAlpha.value > 0) {
-      overlay.material.uniforms.uAlpha.value -= 0.01;
+      overlay.material.uniforms.uAlpha.value -= 0.05;
       if (!state.core.controls.enabled) {
         state.core.controls.enabled = true;
       }
     }
-    if (state.attributes.loaded) {
+    if (
+      state.attributes.loaded &&
+      overlay.material.uniforms.uAlpha.value <= 0.1
+    ) {
       state.core.scene.remove(overlay);
       overlay.material.dispose();
       overlay.geometry.dispose();
+    }
+    if (state.attributes.loaded) {
       fireflies.material.uniforms.uTime.value = clock.getElapsedTime();
       portalMaterial.uniforms.uTime.value = clock.getElapsedTime();
     }

@@ -21,7 +21,7 @@ export const setupEntryLoader = (attributes: { loaded: boolean }) => {
       setTimeout(() => {
         progress.remove();
         loadingTitle.remove();
-      }, 750);
+      }, 800);
       attributes.loaded = true;
     }
   };
