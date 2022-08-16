@@ -137,7 +137,7 @@ export class Core {
     const fov = 75;
     const aspect = this.sizes.width / this.sizes.height;
     const camera = new THREE.PerspectiveCamera(fov, aspect);
-    camera.position.set(4, 1, -4);
+    camera.position.set(-0.46, 0.4, -2.7);
     this.scene.add(camera);
     return camera;
   }
